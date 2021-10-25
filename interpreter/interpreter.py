@@ -15,6 +15,9 @@ class Interpreter:
 
     def _next_token(self) -> Token:
         while self._current_char != None:
+            if self._current_char == " ":
+                self.skip()
+                continue
             if self._current_char.isdigit():
                 char = self._current_char
                 self._forward()
@@ -36,6 +39,10 @@ class Interpreter:
             self._current_char = None
         else:
             self._current_char = self._text[self._pos]
+
+    def skip(self):
+        while self._current_char and self._current_char == " ":
+            self._forward()
 
     def _check_token_type(self, type_: TokenType):
         if self._current_token.type_ == type_:
