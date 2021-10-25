@@ -16,18 +16,21 @@ class Interpreter:
     def _next_token(self) -> Token:
         while self._current_char != None:
             if self._current_char.isdigit():
-                self.forward()
-                return Token(TokenType.INTEGER, self._current_char)
+                char = self._current_char
+                self._forward()
+                return Token(TokenType.INTEGER, char)
             if self._current_char == "+":
-                self.forward()
-                return Token(TokenType.PLUS, self._current_char)
+                char = self._current_char
+                self._forward()
+                return Token(TokenType.PLUS, char)
             if self._current_char == "-":
-                self.forward()
-                return Token(TokenType.MINUS, self._current_char)
+                char = self._current_char
+                self._forward()
+                return Token(TokenType.MINUS, char)
             raise InterpreterExceptiont(f"bad token{self._current_char}")
         return Token(TokenType.EOS, None)
 
-    def forward(self):
+    def _forward(self):
         self._pos += 1
         if self._pos >= len(self._text):
             self._current_char = None
@@ -40,12 +43,12 @@ class Interpreter:
         else:
             raise InterpreterExceptiont("invalid token order")
 
-    def _expr(self) -> int:
+    def _expr(self) -> int or InterpreterExceptiont:
         self._current_token = self._next_token()
         left = self._current_token
         self._check_token_type(TokenType.INTEGER)
         op = self._current_token  # Оператор читаем
-        if (op.type_ == TokenType.PLUS):
+        if op.type_ == TokenType.PLUS:
             self._check_token_type(TokenType.PLUS)
         else:
             self._check_token_type(TokenType.MINUS)
@@ -62,5 +65,6 @@ class Interpreter:
 
     def interpret(self, text: str) -> int:
         self._text = text
-        self._pos = 0
+        self._pos = -1
+        self._forward()
         return self._expr()
