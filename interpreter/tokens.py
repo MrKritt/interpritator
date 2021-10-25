@@ -2,11 +2,10 @@ from enum import Enum, auto
 
 
 class TokenType(Enum):  # Класс какие возможноые токены мыподдержиаем
-    INTEGER = auto()
+    NUMBER = auto()
     PLUS = auto()
     MINUS = auto()
     EOS = auto()
-
 
 class Token():
     def __init__(self, type_: TokenType, value: str):
