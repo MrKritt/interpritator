@@ -1,11 +1,18 @@
 from enum import Enum, auto
 
 
-class TokenType(Enum):  # Класс какие возможноые токены мыподдержиаем
-    NUMBER = auto()
+class TokenType(Enum):
+    INTEGER = auto()
+    FLOAT = auto()
     PLUS = auto()
     MINUS = auto()
-    EOS = auto()
+    MUL = auto()
+    DIV = auto()
+    POW = auto()
+    LPAREN = auto()
+    RPAREN = auto()
+    EOS = auto()  # конец строки
+
 
 class Token():
     def __init__(self, type_: TokenType, value: str):
@@ -13,9 +20,9 @@ class Token():
         self.value = value
 
     def __str__(self):
-        return f"Token({self.type_}, {self.value}"
+        return f"Token({self.type_}, {self.value})"  # явное приведение
 
-    def __repr__(self):  # Внутреннее представление
+    def __repr__(self):
         return str(self)
 
 

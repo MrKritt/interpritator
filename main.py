@@ -1,5 +1,6 @@
-from interpreter import Interpreter
+from interpreter import Interpreter, Parser
+import interpreter
 
 if __name__ == "__main__":
-    interpritator = Interpreter()
-    print(interpritator("1 + 1"))
+    parser = Parser()
+    print(parser.parse("2 + 2"))
